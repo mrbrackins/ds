@@ -88,15 +88,19 @@ deleteAt(index){
 
 insertAt(index, value){
     if(index == 0){
-        this.prepend(value)
+        this.length++
+       return  this.prepend(value)
     }
     if(index == (this.length -1)){
-        this.append(value)
+        this.length++
+       return  this.append(value)
     }
     let newNode = new Node(value)
-    let rightNode = this.getNodeAt(index + 1)
+    let rightNode = this.getNodeAt(index) //5's next is null
+    console.log('right node: ')
+    console.log(rightNode)
     //connect new node to left's next
-    let leftNode = this.getNodeAt(index -1)
+    let leftNode = this.getNodeAt(index -1) // 7
     leftNode.next =  newNode;
     //connect this node's next to right
     newNode.next = rightNode;
@@ -104,6 +108,38 @@ insertAt(index, value){
 
     
    this.length++
+}
+removeHead(){
+let removedHead = this.head
+let newHead = this.head.next
+this.head = newHead
+this.length--
+
+return removedHead
+}
+
+print(){
+    if(this.length == 0){
+        return "empty list"
+    }
+    let currentIndex = 0
+    let currentNode = this.head
+    while(currentIndex < this.length ){
+        // console.log("currentNode: ", currentNode)
+        console.log(currentNode.value)
+        currentNode = currentNode.next
+        currentIndex++
+    }
+    return ""
+    
+}
+
+removeTail(){
+let newTail = this.getNodeAt(this.length - 2);
+this.tail = newTail
+this.tail.next = null
+this.length--
+console.log(this)
 }
 
 
@@ -123,24 +159,26 @@ class Node {
 
 let list = new LinkyList();
 console.log(list)
-list.prepend(7)
-console.log(list)
 list.prepend(8)
 console.log(list)
+
+list.print()
 list.append(6)
 list.append(5)
-console.log("***LIST***")
-console.log(list)
-console.log("***END LIST***")
-console.log("***getNodeAt***")
-list.getNodeAt(0);
-console.log("***search***")
-console.log(list.search(8))
-console.log("***deleteAt***")
-console.log(list.deleteAt(1))
-console.log("***List After Delete***")
-console.log(list)
+console.log("865?")
+list.print()
+
 list.insertAt(1, 7)
 console.log("***List After Insert***")
+console.log(list)
+console.log(list.print())
+
+console.log('removed head')
+list.removeHead()
+console.log(list)
+console.log(list.print())
+console.log('removed tail')
+list.removeTail()
+console.log(list.print())
 console.log(list)
 
